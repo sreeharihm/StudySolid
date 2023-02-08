@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using SolidPrinciple;
 
-Console.WriteLine("Ardalis Insurance Rating System Starting...");
+Console.WriteLine("Insurance Rating System Starting...");
 
 var engine = new RatingEngine();
 engine.Rate();
