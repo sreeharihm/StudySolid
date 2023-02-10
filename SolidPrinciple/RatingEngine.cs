@@ -11,22 +11,22 @@ namespace SolidPrinciple
 {
     public class RatingEngine
     {
-        public ConsoleLogger Logger { get; set; } = new ConsoleLogger();
-        public FilePolicySource PolicySource { get; set; } = new FilePolicySource();
-        public JsonPolicySerializer PolicySerializer { get; set; } = new JsonPolicySerializer();
+        public IRatingContext Context { get; set; } = new DefaultRatingContext();
+        public RatingEngine() { 
+            Context.Engine= this;
+        }   
         public decimal Rating { get; set; }
 
         public void Rate()
         {
 
-            Logger.Log("Starting rate.");
-            Logger.Log("Loading policy.");
-            string policyJson = PolicySource.GetPolicyFromSource();
-            var policy = PolicySerializer.GetPolicyFromJsonString(policyJson);
-            var factory = new RaterFactory();
-            var rater = factory.Create(policy, this);
+            Context.Log("Starting rate.");
+            Context.Log("Loading policy.");
+            string policyJson = Context.LoadPolicyFromFile();
+            var policy = Context.GetPolicyFromJsonString(policyJson);
+            var rater = Context.CreateRaterForPolicy(policy, Context);
             rater.Rate(policy);
-            Logger.Log("Rating completed..");
+            Context.Log("Rating completed..");
         }
 
     }

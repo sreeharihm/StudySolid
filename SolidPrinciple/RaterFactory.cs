@@ -2,14 +2,14 @@
 {
     public class RaterFactory
     {
-        public Rater Create(Policy policy, RatingEngine engine) {
+        public Rater Create(Policy policy,  IRatingContext context) {
             try
             {
-                return (Rater)Activator.CreateInstance(Type.GetType($"SolidPrinciple.{policy.Type}PolicyRater"), new object[] { engine, engine.Logger });
+                return (Rater)Activator.CreateInstance(Type.GetType($"SolidPrinciple.{policy.Type}PolicyRater"), new object[] { context });
             }
             catch (Exception)
             {
-                return null;
+                return new UnknownPolicyRater(context); ;
             }
         }
     }
