@@ -29,7 +29,7 @@ namespace SolidPrincipleTest
         {
             var policy = new Policy
             {
-                Type = PolicyType.Land,
+                //Type = PolicyType.Land,
                 BondAmount = 200000,
                 Valuation = 260000
             };
